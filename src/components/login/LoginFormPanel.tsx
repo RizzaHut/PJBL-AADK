@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import { Outfit } from "next/font/google";
 import { createClient } from "@/lib/supabase/client";
+import { masuk } from "@/lib/actions/auth";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -12,7 +13,7 @@ const outfit = Outfit({
   display: "swap",
 });
 
-const getStaffDashboardPath = (role?: string | null) => {
+const getStaffDashboardPath = (role?: string | null): "/" | "/admin" | "/moderator" => {
   if (role === "super_admin") return "/admin";
   if (role === "moderator") return "/moderator";
   return "/";
@@ -28,23 +29,36 @@ export function LoginFormPanel() {
 
   useEffect(() => {
     let active = true;
-    const supabase = createClient();
 
     async function redirectExistingSession() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      try {
+        const supabase = createClient();
+        const {
+          data: { user },
+          error: authError,
+        } = await supabase.auth.getUser();
 
-      if (!active || !session) return;
+        if (!active) return;
+        if (authError) throw authError;
+        if (!user) return;
 
-      const { data: staff } = await supabase
-        .from("staf")
-        .select("id, peran")
-        .eq("id", session.user.id)
-        .maybeSingle();
+        const { data: staff, error: staffError } = await supabase
+          .from("staf")
+          .select("id, peran")
+          .eq("id", user.id)
+          .maybeSingle();
 
-      if (active) {
+        if (staffError) throw staffError;
         router.replace(getStaffDashboardPath(staff?.peran ?? null));
+      } catch (err) {
+        if (!active) return;
+        const message = err instanceof Error ? err.message : "";
+        setError(
+          message.startsWith("Supabase belum dikonfigurasi") ||
+            message.startsWith("NEXT_PUBLIC_SUPABASE_URL bukan URL")
+            ? message
+            : t("serviceUnavailable"),
+        );
       }
     }
 
@@ -53,7 +67,7 @@ export function LoginFormPanel() {
     return () => {
       active = false;
     };
-  }, [router]);
+  }, [router, t]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -61,66 +75,23 @@ export function LoginFormPanel() {
     setIsSubmitting(true);
 
     try {
-      const supabase = createClient();
-      const normalizedUsername = username.trim();
-      const normalizedPassword = password;
-
-      let email = normalizedUsername;
-
-      if (!normalizedUsername.includes("@")) {
-        const { data: profile, error: profileError } = await supabase
-          .from("pengguna")
-          .select("email")
-          .eq("username", normalizedUsername)
-          .maybeSingle();
-
-        if (profileError) {
-          throw profileError;
-        }
-
-        if (!profile?.email) {
-          throw new Error("USER_NOT_FOUND");
-        }
-
-        email = profile.email;
+      const result = await masuk(username, password);
+      if (result.ok) {
+        router.replace(result.tujuan);
+        return;
       }
 
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password: normalizedPassword,
-      });
-
-      if (signInError) {
-        throw signInError;
-      }
-
-      const {
-        data: { user: authUser },
-      } = await supabase.auth.getUser();
-
-      if (!authUser) {
-        throw new Error("AUTHENTICATION_FAILED");
-      }
-
-      await supabase
-        .from("pengguna")
-        .update({ terakhir_aktif_pada: new Date().toISOString() })
-        .eq("id", authUser.id);
-
-      const { data: staff } = await supabase
-        .from("staf")
-        .select("id, peran")
-        .eq("id", authUser.id)
-        .maybeSingle();
-
-      router.replace(getStaffDashboardPath(staff?.peran ?? null));
-    } catch (err) {
-      const message =
-        err instanceof Error && err.message === "USER_NOT_FOUND"
+      setError(
+        result.alasan === "kredensial"
           ? t("invalidCredentials")
-          : t("invalidCredentials");
-
-      setError(message);
+          : result.alasan === "konfigurasi"
+            ? t("configurationUnavailable")
+            : result.alasan === "izin_database"
+              ? t("databasePermissionUnavailable")
+            : t("serviceUnavailable"),
+      );
+    } catch {
+      setError(t("serviceUnavailable"));
     } finally {
       setIsSubmitting(false);
     }
@@ -137,7 +108,10 @@ export function LoginFormPanel() {
         </h2>
 
         {error && (
-          <div className="mb-5 border-2 border-dashed border-[#C13A1B] bg-[#FDE8E4] px-4 py-3 text-sm text-[#8F2A11]">
+          <div
+            className="mb-5 border-2 border-dashed border-[#C13A1B] bg-[#FDE8E4] px-4 py-3 text-sm text-[#8F2A11]"
+            role="alert"
+          >
             {error}
           </div>
         )}

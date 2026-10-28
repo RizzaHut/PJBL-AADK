@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { Outfit } from "next/font/google";
+import Image from "next/image";
 import { useRouter } from "@/i18n/navigation";
 import Button from "@/components/Button";
 import { DashedInput } from "@/components/DashedElements";
@@ -69,14 +70,23 @@ export default function TechnicianRegisterPage() {
   }
 
   return (
-    <main className={`${outfit.className} register-page`}>
-      <div className="register-page__brand" aria-label="AADK">
-        <img src="/assets/Icons/AADK icon.svg" alt="AADK" />
+    <main
+      className={`${outfit.className} min-h-screen bg-white px-6 pt-8 pb-16 max-[600px]:px-4`}
+    >
+      <div className="w-fit select-none" aria-label="AADK">
+        <Image
+          src="/assets/Icons/AADK icon.svg"
+          alt="AADK"
+          width={70}
+          height={70}
+          priority
+          className="block h-auto w-[4.4rem]"
+        />
       </div>
 
       <RegisterWindow currentStep={1} showStageLabel={false}>
         {isSuccess ? (
-          <div className="register-stage flex min-h-[30rem] items-center justify-center text-center">
+          <div className="flex min-h-[30rem] items-center justify-center text-center">
             <div className="mx-auto w-full max-w-3xl">
               <div className="mb-2 text-center">
                 <h1 className="m-0 text-2xl font-[Outfit] font-bold">
@@ -93,9 +103,11 @@ export default function TechnicianRegisterPage() {
                   aria-label="Pengajuan berhasil dikirim"
                   className="grid h-28 w-28 place-items-center bg-transparent"
                 >
-                  <img
+                  <Image
                     src="/assets/Icons/Checkmark icon.svg"
                     alt=""
+                    width={64}
+                    height={64}
                     className="h-16 w-16 object-contain"
                     aria-hidden="true"
                   />
@@ -121,24 +133,29 @@ export default function TechnicianRegisterPage() {
           </div>
         ) : (
           <form
-            className="register-stage technician-register-stage"
+            className="flex flex-col justify-center"
             onSubmit={handleSubmit}
           >
-            <div className="register-stage__intro">
-              <h1>Daftar sebagai teknisi</h1>
-              <p>
+            <div className="mb-7 text-center">
+              <h1 className="font-[var(--font-outfit)] text-[clamp(1.45rem,2.6vw,1.8rem)] leading-[1.15] font-bold">
+                Daftar sebagai teknisi
+              </h1>
+              <p className="mt-[0.45rem] text-[0.8rem] text-[#34383f]">
                 Kirim bukti keahlian kamu agar moderator dapat menilai kelayakan
                 menjadi teknisi komunitas.
               </p>
             </div>
 
             {error && (
-              <p className="register-error" role="alert">
+              <p
+                className="-mt-6 mb-4 text-center text-[0.85rem] text-[#cc3300]"
+                role="alert"
+              >
                 {error}
               </p>
             )}
 
-            <div className="register-form-stack technician-register-form">
+            <div className="mx-auto grid w-full max-w-lg gap-5 [&_input]:min-h-12">
               <DashedInput
                 type="text"
                 label="URL bukti / portofolio"
