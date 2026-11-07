@@ -40,8 +40,7 @@ export default function AccordionItem({
 
   return (
     <div
-      className={`w-full mb-6 border-[1.5px] border-black rounded-sm overflow-hidden shadow-[0_3px_0_rgba(0,0,0,0.12)] transition-all ${className}`}
-      style={{ backgroundColor: "#cff2d2" }}
+      className={`mb-6 w-full overflow-hidden rounded-sm border-[1.5px] border-black bg-[#cff2d2] shadow-[0_3px_0_rgba(0,0,0,0.12)] transition-all ${className}`}
     >
       <button
         type="button"
