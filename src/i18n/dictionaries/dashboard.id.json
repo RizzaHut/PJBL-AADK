@@ -1,0 +1,69 @@
+{
+  "ui": {
+    "tutup": "Tutup",
+    "batal": "Batal",
+    "lanjutkan": "Lanjutkan",
+    "hapus": "Hapus",
+    "simpan": "Menyimpan...",
+    "cari": "Cari…",
+    "cariDiTabel": "Cari di tabel",
+    "aksi": "Aksi",
+    "sedangMemuat": "Memuat...",
+    "lihatDetail": "Lihat detail",
+    "edit": "Edit",
+    "aksiLainnya": "Aksi lainnya",
+    "filterStatus": "Filter status",
+    "semua": "Semua",
+    "urutkan": "Urutkan",
+    "menampilkan": "Menampilkan {mulai}–{akhir} dari {total} data",
+    "nolData": "0 data",
+    "tidakAda": "Tidak ada data yang cocok",
+    "ubahFilter": "Ubah kata kunci atau atur ulang filter.",
+    "aturUlang": "Atur ulang filter",
+    "belumAda": "Belum ada data",
+    "dataMuncul": "Data akan muncul di sini.",
+    "halamanSebelumnya": "Halaman sebelumnya",
+    "halamanBerikutnya": "Halaman berikutnya",
+    "halamanKe": "Halaman {nomor}",
+    "bukaMenu": "Buka menu",
+    "tutupMenu": "Tutup menu",
+    "lewatiKonten": "Lewati ke konten utama",
+    "navigasiUtama": "Navigasi utama",
+    "akunSaya": "Buka akun saya",
+    "keluar": "Keluar",
+    "urungkan": "Urungkan",
+    "aksiBelumTersambung": "Aksi ini belum tersambung ke data asli",
+    "langkahKe": "Langkah {nomor} dari {total}",
+    "wajibDiisi": "Wajib diisi"
+  },
+  "peran": {
+    "anggota": "Anggota",
+    "teknisi": "Teknisi",
+    "moderator": "Moderator",
+    "super_admin": "Super Admin"
+  },
+  "nav": {
+    "profile": {
+      "summary": "Rangkuman",
+      "activity": "Aktivitas",
+      "myTutorials": "Tutorial saya",
+      "readingHistory": "Riwayat baca",
+      "forumPosts": "Post forum",
+      "comments": "Komentar",
+      "account": "Akun",
+      "warnings": "Peringatan",
+      "becomeTechnician": "Jadi teknisi",
+      "myAccount": "Akun saya",
+      "backToSite": "Kembali ke situs"
+    },
+    "moderator": {
+      "summary": "Rangkuman",
+      "moderation": "Moderasi",
+      "technicianApplications": "Pengajuan teknisi",
+      "contentReports": "Laporan konten",
+      "warnings": "Peringatan",
+      "account": "Akun",
+      "myAccount": "Akun saya"
+    }
+  }
+}

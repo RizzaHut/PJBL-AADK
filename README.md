@@ -232,7 +232,6 @@ aadk/
 │       │       ├───jadi-teknisi
 │       │       ├───komentar
 │       │       ├───peringatan
-│       │       ├───pesanan
 │       │       ├───post
 │       │       │   ├───baru
 │       │       │   ├───disukai

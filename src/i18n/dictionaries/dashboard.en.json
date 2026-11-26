@@ -1,0 +1,69 @@
+{
+  "ui": {
+    "tutup": "Close",
+    "batal": "Cancel",
+    "lanjutkan": "Continue",
+    "hapus": "Delete",
+    "simpan": "Saving...",
+    "cari": "Search...",
+    "cariDiTabel": "Search table",
+    "aksi": "Actions",
+    "sedangMemuat": "Loading...",
+    "lihatDetail": "View details",
+    "edit": "Edit",
+    "aksiLainnya": "More actions",
+    "filterStatus": "Filter by status",
+    "semua": "All",
+    "urutkan": "Sort",
+    "menampilkan": "Showing {mulai}–{akhir} of {total} records",
+    "nolData": "0 records",
+    "tidakAda": "No matching records",
+    "ubahFilter": "Change the search term or reset the filters.",
+    "aturUlang": "Reset filters",
+    "belumAda": "No data yet",
+    "dataMuncul": "Data will appear here.",
+    "halamanSebelumnya": "Previous page",
+    "halamanBerikutnya": "Next page",
+    "halamanKe": "Page {nomor}",
+    "bukaMenu": "Open menu",
+    "tutupMenu": "Close menu",
+    "lewatiKonten": "Skip to main content",
+    "navigasiUtama": "Main navigation",
+    "akunSaya": "Open my account",
+    "keluar": "Log out",
+    "urungkan": "Undo",
+    "aksiBelumTersambung": "This action is not connected to live data yet",
+    "langkahKe": "Step {nomor} of {total}",
+    "wajibDiisi": "Required"
+  },
+  "peran": {
+    "anggota": "Member",
+    "teknisi": "Technician",
+    "moderator": "Moderator",
+    "super_admin": "Super Admin"
+  },
+  "nav": {
+    "profile": {
+      "summary": "Overview",
+      "activity": "Activity",
+      "myTutorials": "My tutorials",
+      "readingHistory": "Reading history",
+      "forumPosts": "Forum posts",
+      "comments": "Comments",
+      "account": "Account",
+      "warnings": "Warnings",
+      "becomeTechnician": "Become a technician",
+      "myAccount": "My account",
+      "backToSite": "Back to site"
+    },
+    "moderator": {
+      "summary": "Overview",
+      "moderation": "Moderation",
+      "technicianApplications": "Technician applications",
+      "contentReports": "Content reports",
+      "warnings": "Warnings",
+      "account": "Account",
+      "myAccount": "My account"
+    }
+  }
+}

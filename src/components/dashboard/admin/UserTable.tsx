@@ -1,7 +1,7 @@
 import { AksiIkon } from "@/components/dashboard/ui/AksiBaris";
 import { Badge } from "@/components/dashboard/ui/Badge";
 import { DataTable, type Kolom } from "@/components/dashboard/ui/DataTable";
-import { inisial, tanggal, waktuLalu } from "@/lib/format";
+import { tanggal, waktuLalu } from "@/lib/format";
 import { LABEL_PERAN, NADA_PERAN } from "@/lib/labels";
 import type { ListHasil } from "@/lib/queries/moderasi";
 import { buatHref, type ParamTabel } from "@/lib/table-params";
@@ -26,14 +26,9 @@ export async function UserTable({ list, param }: { list: ListHasil<Pengguna>; pa
       kunci: "username",
       label: "Pengguna",
       sel: (r) => (
-        <div className="person">
-          <span className="av" aria-hidden="true">
-            {inisial(r.username)}
-          </span>
-          <div className="t">
-            <span className="cell-strong">{r.username}</span>
-            <span className="cell-sub">{r.email}</span>
-          </div>
+        <div>
+          <span className="cell-strong">{r.username}</span>
+          <span className="cell-sub">{r.email}</span>
         </div>
       ),
     },

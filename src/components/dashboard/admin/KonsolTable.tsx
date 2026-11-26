@@ -7,7 +7,6 @@ import { LABEL_MEREK, LABEL_TIPE } from "@/lib/labels";
 import type { ListHasil } from "@/lib/queries/moderasi";
 import type { ParamTabel } from "@/lib/table-params";
 import type { Konsol, Merek, TipeKonsol } from "@/types/domain";
-import { NamaThumb } from "./NamaThumb";
 
 export const BASE_KONSOL = "/admin/konsol";
 
@@ -45,7 +44,7 @@ export async function KonsolTable({ list, param }: { list: ListHasil<Konsol>; pa
     {
       kunci: "nama",
       label: "Konsol",
-      sel: (r) => <NamaThumb nama={r.nama} />,
+      sel: (r) => <span className="cell-strong">{r.nama}</span>,
     },
     { kunci: "merek", label: "Merek", lebar: "120px", sel: (r) => LABEL_MEREK[r.merek] },
     { kunci: "tipe", label: "Tipe", lebar: "185px", sel: (r) => LABEL_TIPE[r.tipe] },
