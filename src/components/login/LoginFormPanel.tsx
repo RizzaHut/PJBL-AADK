@@ -39,6 +39,7 @@ export function LoginFormPanel() {
         } = await supabase.auth.getUser();
 
         if (!active) return;
+        if (authError?.name === "AuthSessionMissingError") return;
         if (authError) throw authError;
         if (!user) return;
 
