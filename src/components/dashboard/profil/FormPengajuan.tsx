@@ -64,7 +64,7 @@ export function FormPengajuan({ alasanSebelumnya }: { alasanSebelumnya: string |
           <ol className="step-list" style={{ marginTop: 8 }}>
             <li>Tunjukkan proses perbaikan konsol yang kamu kerjakan sendiri.</li>
             <li>Video terlihat jelas, atau foto menampilkan sebelum dan sesudah perbaikan.</li>
-            <li>Tanpa watermark toko atau orang lain.</li>
+            <li>Tanpa watermark milik orang lain.</li>
           </ol>
         </div>
       </div>

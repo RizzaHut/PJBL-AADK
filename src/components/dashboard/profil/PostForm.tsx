@@ -79,7 +79,7 @@ export function PostForm({ awal }: Props) {
         sub={
           edit
             ? "Perbarui isi post. Komentar dan suka tetap tersimpan."
-            : "Tulis topik diskusi seputar konsol. Jual beli lewat toko AADK, bukan forum."
+            : "Tulis topik diskusi seputar konsol."
         }
       />
       <form

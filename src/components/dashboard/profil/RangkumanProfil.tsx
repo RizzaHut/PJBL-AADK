@@ -2,8 +2,8 @@ import { Badge } from "@/components/dashboard/ui/Badge";
 import { Icon } from "@/components/dashboard/ui/Icon";
 import type { NamaIkon } from "@/components/dashboard/ui/icons";
 import { Link } from "@/i18n/navigation";
-import { angka, inisial, tanggal, tanggalPanjang, sisaWaktu } from "@/lib/format";
-import { infoBayar, type RangkumanProfil as Data } from "@/lib/queries/profil";
+import { angka, inisial, tanggal, tanggalPanjang } from "@/lib/format";
+import type { RangkumanProfil as Data } from "@/lib/queries/profil";
 
 function Kartu({ ikon, nada, label, nilai, teks }: { ikon: NamaIkon; nada?: "o"; label: string; nilai: React.ReactNode; teks?: boolean }) {
   return (
@@ -40,7 +40,6 @@ function Baris({ href, ikon, judul, detail, jumlah, nol }: { href: string; ikon:
 /** Halaman Rangkuman profil (Server Component). Anggota dan Teknisi memakai tampilan sama. */
 export function RangkumanProfil({ d, hariIni }: { d: Data; hariIni: string }) {
   const { me, teknisi } = d;
-  const bayar = d.pesananMenungguBayar;
   const ket = {
     baru: "Ajukan bukti keahlian untuk menulis tutorial",
     menunggu: "Moderator sedang meninjau pengajuanmu",
@@ -110,14 +109,6 @@ export function RangkumanProfil({ d, hariIni }: { d: Data; hariIni: string }) {
       <div className="todo2" style={{ marginTop: 14 }}>
         <div className="todo2-h">Perlu tindakan</div>
         <div className="todo2-b">
-          <Baris
-            href="/profil/pesanan"
-            ikon="box"
-            judul="Pesanan menunggu bayar"
-            detail={bayar.length ? `Batas terdekat: ${sisaWaktu(infoBayar(bayar[0]).sisaMenit)}` : "Tidak ada tagihan"}
-            jumlah={bayar.length}
-            nol={!bayar.length}
-          />
           {teknisi ? (
             <Baris href="/profil/tutorial/baru" ikon="plus" judul="Tulis tutorial baru" detail="Bagikan panduan perbaikan terbaru" jumlah="Mulai" nol />
           ) : (
