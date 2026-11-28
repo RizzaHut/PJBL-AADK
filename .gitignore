@@ -32,16 +32,18 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-
-# vercel
-.vercel
-.agents
-.designs
+.env.local
 
 # md
-SKEMA_DATABASE.md
-AADK_Component_List.md
-aadk-v1-tree.md
+SKEMA_DATABASE_1.md
+SKEMA_DATABASE_2.md
+
+# github
+.github
+
+# agents
+AGENTS.md
+CLAUDE.md
 
 # typescript
 *.tsbuildinfo
