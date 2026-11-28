@@ -56,7 +56,7 @@ export default function WebFeatures({
       title: t("features.technician.title"),
       description: t("features.technician.description"),
       buttonLabel: t("features.technician.button"),
-      buttonHref: "/register/teknisi",
+      buttonHref: "/profil/jadi-teknisi",
       buttonColor: "#5979da",
       bgSideColor: "#5979da",
       iconSrc: "/assets/Icons/Safety hat icon.svg",

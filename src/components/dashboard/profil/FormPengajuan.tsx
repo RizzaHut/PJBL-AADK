@@ -17,29 +17,44 @@ export function FormPengajuan({ alasanSebelumnya }: { alasanSebelumnya: string |
   const [tipe, setTipe] = useState<Tipe>("video");
   const [item, setItem] = useState<ItemBerkas[]>([]);
   const [setuju, setSetuju] = useState(false);
-  const [galat, setGalat] = useState<{ berkas?: string; pernyataan?: string }>({});
+  const [galat, setGalat] = useState<{
+    berkas?: string;
+    pernyataan?: string;
+    umum?: string;
+  }>({});
   const [berjalan, mulai] = useTransition();
   const video = tipe === "video";
 
   function kirim() {
+    const file = item[0]?.berkas;
     const g = {
-      berkas: item.length ? "" : `Pilih ${video ? "video" : "foto"} sebagai bukti.`,
+      berkas: file
+        ? ""
+        : `Pilih ${video ? "video" : "foto"} sebagai bukti.`,
       pernyataan: setuju ? "" : "Centang pernyataan ini untuk melanjutkan.",
     };
     setGalat(g);
     if (g.berkas || g.pernyataan) return;
+    if (!file) return;
     const data = new FormData();
     data.set("jenis", tipe);
-    data.set("berkas", item[0].berkas as File);
+    data.set("berkas", file);
     data.set("pernyataan", "on");
     mulai(async () => {
-      const h = await ajukanTeknisi(null, data);
-      if (h.ok) {
-        toast.tampil(h.pesan ?? "Pengajuan terkirim.");
-        router.refresh();
-      } else {
-        setGalat(h.kolom ?? {});
-        toast.tampil(h.pesan);
+      try {
+        const h = await ajukanTeknisi(null, data);
+        if (h.ok) {
+          toast.tampil(h.pesan ?? "Pengajuan terkirim.");
+          router.refresh();
+        } else {
+          setGalat(h.kolom ?? {});
+          toast.tampil(h.pesan);
+        }
+      } catch (error) {
+        console.error("Pengajuan teknisi gagal dikirim:", error);
+        const pesan = "Pengajuan gagal diproses. Periksa koneksi lalu coba lagi.";
+        setGalat({ umum: pesan });
+        toast.tampil(pesan);
       }
     });
   }
@@ -57,6 +72,11 @@ export function FormPengajuan({ alasanSebelumnya }: { alasanSebelumnya: string |
         <div className="note warn" style={{ marginBottom: 14 }}>
           <b>Pengajuan sebelumnya ditolak.</b> {alasanSebelumnya}
         </div>
+      ) : null}
+      {galat.umum ? (
+        <p className="fld-err" role="alert">
+          {galat.umum}
+        </p>
       ) : null}
       <div className="card" style={{ marginBottom: 14 }}>
         <div className="intro-card" style={{ border: 0 }}>
@@ -99,7 +119,7 @@ export function FormPengajuan({ alasanSebelumnya }: { alasanSebelumnya: string |
             galat={galat.berkas}
             onChange={(n) => {
               setItem(n);
-              setGalat((g) => ({ ...g, berkas: "" }));
+              setGalat((g) => ({ ...g, berkas: "", umum: "" }));
             }}
           />
         </div>

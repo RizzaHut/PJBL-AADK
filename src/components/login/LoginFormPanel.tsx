@@ -13,13 +13,19 @@ const outfit = Outfit({
   display: "swap",
 });
 
+type TujuanSetelahMasuk = "/profil/jadi-teknisi";
+
 const getStaffDashboardPath = (role?: string | null): "/" | "/admin" | "/moderator" => {
   if (role === "super_admin") return "/admin";
   if (role === "moderator") return "/moderator";
   return "/";
 };
 
-export function LoginFormPanel() {
+export function LoginFormPanel({
+  tujuanSetelahMasuk,
+}: {
+  tujuanSetelahMasuk?: TujuanSetelahMasuk;
+}) {
   const router = useRouter();
   const t = useTranslations("auth.login");
   const [username, setUsername] = useState("");
@@ -50,7 +56,8 @@ export function LoginFormPanel() {
           .maybeSingle();
 
         if (staffError) throw staffError;
-        router.replace(getStaffDashboardPath(staff?.peran ?? null));
+        const tujuanBawaan = getStaffDashboardPath(staff?.peran ?? null);
+        router.replace(staff ? tujuanBawaan : tujuanSetelahMasuk ?? tujuanBawaan);
       } catch (err) {
         if (!active) return;
         const message = err instanceof Error ? err.message : "";
@@ -68,7 +75,7 @@ export function LoginFormPanel() {
     return () => {
       active = false;
     };
-  }, [router, t]);
+  }, [router, t, tujuanSetelahMasuk]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -76,7 +83,7 @@ export function LoginFormPanel() {
     setIsSubmitting(true);
 
     try {
-      const result = await masuk(username, password);
+      const result = await masuk(username, password, tujuanSetelahMasuk);
       if (result.ok) {
         router.replace(result.tujuan);
         return;

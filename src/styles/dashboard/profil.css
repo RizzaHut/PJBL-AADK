@@ -75,7 +75,8 @@
 .aadk-dash.dash-profil .pick .upload small{font-weight:400}
 .aadk-dash.dash-profil .thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
 .aadk-dash.dash-profil .thumb{position:relative;width:104px;height:auto;display:block;border:1px solid var(--edge);border-radius:10px;background:#fff;overflow:hidden}
-.aadk-dash.dash-profil .thumb img,.aadk-dash.dash-profil .thumb .ph{display:grid;place-items:center;width:100%;height:72px;object-fit:cover;background:#EEF2F8;color:var(--muted)}
+.aadk-dash.dash-profil .thumb img{display:block;width:100%;height:72px;object-fit:cover;background:#EEF2F8}
+.aadk-dash.dash-profil .thumb .ph{display:grid;place-items:center;gap:2px;width:100%;height:72px;overflow:hidden;padding:4px;text-align:center;font-size:10px;line-height:1.2;object-fit:cover;background:#EEF2F8;color:var(--muted)}
 .aadk-dash.dash-profil .thumb .nm{display:block;padding:5px 8px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#374151}
 .aadk-dash.dash-profil .thumb button{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;border:0;background:rgba(17,24,39,.72);color:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
 .aadk-dash.dash-profil .thumb button:hover{background:#111827}

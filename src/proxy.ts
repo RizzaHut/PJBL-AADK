@@ -17,7 +17,7 @@ const handleI18nRouting = createMiddleware({
   localePrefix: "always",
 });
 
-const RUTE_AUTH = ["/login", "/register", "/register/teknisi"];
+const RUTE_AUTH = ["/login", "/register"];
 const RUTE_KONTEN_PUBLIK = ["/", "/home", "/consoles", "/forum", "/about"];
 
 function adalahRuteKontenPublik(pathname: string) {
@@ -40,6 +40,13 @@ export async function proxy(request: NextRequest) {
   const pathname =
     request.nextUrl.pathname.replace(/^\/(?:id|en)(?=\/|$)/, "") || "/";
 
+  if (pathname === "/register/teknisi") {
+    const tujuan = request.nextUrl.clone();
+    tujuan.pathname = `/${locale}/profil/jadi-teknisi`;
+    tujuan.search = "";
+    return NextResponse.redirect(tujuan);
+  }
+
   const { response, user, supabase } = await updateSession(request);
   response.cookies.delete("aadk_demo_peran");
   response.cookies.delete("aadk_demo_kondisi");
@@ -51,6 +58,9 @@ export async function proxy(request: NextRequest) {
     const tujuan = request.nextUrl.clone();
     tujuan.pathname = `/${locale}/login`;
     tujuan.search = "";
+    if (pathname === "/profil/jadi-teknisi") {
+      tujuan.searchParams.set("next", pathname);
+    }
     return NextResponse.redirect(tujuan);
   }
 

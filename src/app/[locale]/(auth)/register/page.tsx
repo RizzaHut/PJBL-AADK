@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Outfit } from "next/font/google";
 import Image from "next/image";
@@ -50,6 +50,15 @@ export default function RegisterPage() {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null);
+  const previousStepRef = useRef(currentStep);
+
+  useEffect(() => {
+    if (previousStepRef.current !== currentStep) {
+      stepHeadingRef.current?.focus();
+      previousStepRef.current = currentStep;
+    }
+  }, [currentStep]);
 
   const statusText =
     currentStep === 1
@@ -180,7 +189,7 @@ export default function RegisterPage() {
   }
 
   function handleGoToTechnicianRegistration() {
-    router.push("/register/teknisi");
+    router.push("/profil/jadi-teknisi");
   }
 
   return (
@@ -201,7 +210,11 @@ export default function RegisterPage() {
         {currentStep === 1 && (
           <form onSubmit={handleAccountSubmit}>
             <div className="mb-10 text-center">
-              <h1 className="font-[var(--font-outfit)] text-[clamp(1.55rem,3vw,2.1rem)] leading-[1.15] font-bold">
+              <h1
+                ref={stepHeadingRef}
+                tabIndex={-1}
+                className="font-[var(--font-outfit)] text-[clamp(1.55rem,3vw,2.1rem)] leading-[1.15] font-bold"
+              >
                 {t("step1Title")}
               </h1>
             </div>
@@ -264,7 +277,7 @@ export default function RegisterPage() {
                 type="submit"
                 variant="orange"
                 size="md"
-                className="!h-7 !min-h-7 !min-w-[2.35rem] !rounded-[2px] !p-0 font-['Tiny5',monospace] text-[1.35rem] leading-none"
+                className="!h-11 !min-h-11 !min-w-11 !rounded-[2px] !p-0 font-['Tiny5',monospace] text-[1.35rem] leading-none"
                 aria-label={t("nextStep")}
               >
                 <Image
@@ -286,7 +299,11 @@ export default function RegisterPage() {
             onSubmit={handleProfileSubmit}
           >
             <div className="mb-11 text-center">
-              <h1 className="font-[var(--font-outfit)] text-[clamp(1.55rem,3vw,2.1rem)] leading-[1.15] font-bold">
+              <h1
+                ref={stepHeadingRef}
+                tabIndex={-1}
+                className="font-[var(--font-outfit)] text-[clamp(1.55rem,3vw,2.1rem)] leading-[1.15] font-bold"
+              >
                 {t("step2Title")}
               </h1>
             </div>
@@ -318,7 +335,7 @@ export default function RegisterPage() {
                 type="submit"
                 variant="orange"
                 size="md"
-                className="!h-7 !min-h-7 !min-w-[2.35rem] !rounded-[2px] !p-0 font-['Tiny5',monospace] text-[1.35rem] leading-none"
+                className="!h-11 !min-h-11 !min-w-11 !rounded-[2px] !p-0 font-['Tiny5',monospace] text-[1.35rem] leading-none"
                 disabled={isSubmitting}
                 aria-label={t("nextStep")}
               >
@@ -346,7 +363,11 @@ export default function RegisterPage() {
               </p>
             )}
             <div className="mb-7 text-center">
-              <h1 className="font-[var(--font-outfit)] text-[clamp(1.45rem,2.6vw,1.8rem)] leading-[1.15] font-bold">
+              <h1
+                ref={stepHeadingRef}
+                tabIndex={-1}
+                className="font-[var(--font-outfit)] text-[clamp(1.45rem,2.6vw,1.8rem)] leading-[1.15] font-bold"
+              >
                 {t("step3Title")}
               </h1>
               <p className="mt-[0.45rem] text-[0.8rem] text-[#34383f]">
@@ -359,7 +380,7 @@ export default function RegisterPage() {
                 type="button"
                 variant="black"
                 size="sm"
-                className="max-[600px]:w-full"
+                className="!min-h-11 max-[600px]:w-full"
                 onClick={handleSkipTechnician}
               >
                 {t("skip")}
@@ -368,7 +389,7 @@ export default function RegisterPage() {
                 type="button"
                 variant="orange"
                 size="md"
-                className="max-w-[18rem] whitespace-normal text-center max-[600px]:max-w-none"
+                className="!min-h-11 max-w-[18rem] whitespace-normal text-center max-[600px]:max-w-none"
                 onClick={handleGoToTechnicianRegistration}
               >
                 {t("becomeTechnician")}

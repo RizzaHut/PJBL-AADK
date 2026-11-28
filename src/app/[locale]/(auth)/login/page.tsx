@@ -8,13 +8,21 @@ const outfit = Outfit({
   display: "swap",
 });
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string | string[] }>;
+}) {
+  const { next } = await searchParams;
+  const tujuanSetelahMasuk =
+    next === "/profil/jadi-teknisi" ? next : undefined;
+
   return (
     <div
       className={`${outfit.className} flex min-h-screen w-full flex-col md:flex-row`}
     >
       <LoginHeroPanel />
-      <LoginFormPanel />
+      <LoginFormPanel tujuanSetelahMasuk={tujuanSetelahMasuk} />
     </div>
   );
 }

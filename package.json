@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
-    "test": "node --experimental-strip-types --test test/api-stubs.test.mjs test/technician-url.test.mjs"
+    "test": "node --experimental-strip-types --test test/technician-url.test.mjs test/table-pagination.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
